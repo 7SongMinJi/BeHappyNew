@@ -152,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, CalendarMainActivity.class);
                         startActivity(intent);
                         break;
+                        //포켓가든 코드 추가
+                    case R.id.item_pocket_garden:
+                        intent = new Intent(MainActivity.this, getMainUnityActivityClass());
+                        startActivity(intent);
+                        break;
                 }
 
                 // 네비게이션 드로어 닫기
@@ -159,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
 
@@ -185,6 +192,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private Class getMainUnityActivityClass() {
+        return findClassUsingReflection("com.hello.ourApplication.MainUnityActivity");
+    }
+
+    private Class findClassUsingReflection(String className) {
+        try {
+            return Class.forName(className);
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navi_menu, menu);
