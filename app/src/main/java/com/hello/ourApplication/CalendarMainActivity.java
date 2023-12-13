@@ -58,7 +58,7 @@ public class CalendarMainActivity extends AppCompatActivity {
     public String str = null;
     public CalendarView calendarView;
     public ImageButton cha_Btn, del_Btn, save_Btn;
-    public TextView diaryTextView, textView2, textView3;
+    public TextView diaryTextView, textView2, textView3, emotionTextView;
     public EditText contextEditText;
 
 
@@ -160,6 +160,7 @@ public class CalendarMainActivity extends AppCompatActivity {
         cha_Btn = findViewById(R.id.cha_Btn);
         textView2 = findViewById(R.id.textView2);
         contextEditText = findViewById(R.id.contextEditText);
+        emotionTextView = findViewById(R.id.emotionTextView);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
         {
@@ -286,6 +287,13 @@ public class CalendarMainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        Intent intent = getIntent();
+        String recentEmotion = intent.getStringExtra("recentEmotion");
+
+        if (recentEmotion != null) {
+            emotionTextView.setText(recentEmotion);
+        }
 
     }
 

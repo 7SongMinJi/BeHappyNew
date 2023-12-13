@@ -50,8 +50,6 @@ import org.json.JSONObject;
 import android.util.TypedValue;
 import android.graphics.Typeface;
 
-
-
 public class DiaryMainActivity extends AppCompatActivity {
     private LinearLayout parentLayout;
     private RetrofitClient retrofitClient;
@@ -229,9 +227,11 @@ public class DiaryMainActivity extends AppCompatActivity {
                 String content = diary.getString("content");
 
                 LinearLayout entryLayout = new LinearLayout(this);
-                entryLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, 0, 0, 40); // Set margin bottom to create space between entries
+                entryLayout.setLayoutParams(params);
                 entryLayout.setOrientation(LinearLayout.VERTICAL);
 
                 TextView dateTextView = new TextView(this);
@@ -239,7 +239,7 @@ public class DiaryMainActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 dateTextView.setText(date);
-                dateTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                dateTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 dateTextView.setTypeface(null, Typeface.BOLD_ITALIC);
                 entryLayout.addView(dateTextView);
 
@@ -248,7 +248,8 @@ public class DiaryMainActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 contentTextView.setText(content);
-                contentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+                dateTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                contentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                 contentTextView.setTypeface(null, Typeface.NORMAL);
                 entryLayout.addView(contentTextView);
 

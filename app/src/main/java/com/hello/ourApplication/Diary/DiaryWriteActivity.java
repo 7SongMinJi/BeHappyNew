@@ -3,10 +3,12 @@ package com.hello.ourApplication.Diary;
 import static com.hello.ourApplication.Registration.LoginActivity.idText;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -167,6 +169,36 @@ public class DiaryWriteActivity extends AppCompatActivity {
                     return false;
             }
         });
+
+        diaryContent.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            private boolean isKeyboardVisible = false;
+
+            @Override
+            public boolean onPreDraw() {
+                Rect r = new Rect();
+                View rootView = getWindow().getDecorView();
+                int screenHeight = rootView.getHeight();
+                rootView.getWindowVisibleDisplayFrame(r);
+                int keypadHeight = screenHeight - r.bottom;
+
+                if (keypadHeight > screenHeight * 0.15) {
+                    // 자판이 올라올 때
+                    if (!isKeyboardVisible) {
+                        hideBottomNavigation();
+                        isKeyboardVisible = true;
+                    }
+                } else {
+                    // 자판이 사라질 때
+                    if (isKeyboardVisible) {
+                        showBottomNavigation();
+                        isKeyboardVisible = false;
+                    }
+                }
+
+                return true;
+            }
+        });
+
     }
 
     public void DiaryResponse(){
@@ -250,5 +282,15 @@ public class DiaryWriteActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void hideBottomNavigation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    private void showBottomNavigation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

@@ -65,6 +65,7 @@ public class DiarySelectKeywordActivity extends AppCompatActivity {
     ImageButton neutralkeyword;
     ImageButton sadkeyword;
     ImageButton suprisekeyword;
+    ImageButton selectKeyword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,7 @@ public class DiarySelectKeywordActivity extends AppCompatActivity {
         neutralkeyword= findViewById(R.id.keyword_button_7);
         sadkeyword = findViewById(R.id.keyword_button_8);
         suprisekeyword = findViewById(R.id.keyword_button_9);
+        selectKeyword = findViewById(R.id.selectKeyword);
         
         EmotionGetResponse();
 
@@ -275,6 +277,16 @@ public class DiarySelectKeywordActivity extends AppCompatActivity {
                     return true;
                 default:
                     return false;
+            }
+        });
+
+        selectKeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Intent를 사용하여 CalendarMainActivity로 recentEmotion 전달
+                Intent intent = new Intent(DiarySelectKeywordActivity.this, CalendarMainActivity.class);
+                intent.putExtra("recentEmotion", recentEmotion);
+                startActivity(intent);
             }
         });
     }
