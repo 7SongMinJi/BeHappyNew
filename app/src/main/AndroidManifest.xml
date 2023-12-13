@@ -24,6 +24,10 @@
             android:name=".MainActivity"
             android:exported="false"></activity>
         <activity
+            android:name=".MainUnityActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
