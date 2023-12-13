@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.hello.ourApplication.CalendarMainActivity;
 import com.hello.ourApplication.Chat.ChatMainActivity;
 import com.hello.ourApplication.DTO.DiaryResponse;
+import com.hello.ourApplication.DTO.EmotionResponse;
 import com.hello.ourApplication.DTO.LoginResponse;
 import com.hello.ourApplication.DTO.WriteDiary;
 import com.hello.ourApplication.MainActivity;
@@ -35,6 +36,10 @@ import com.hello.ourApplication.Retrofit.RetrofitAPI;
 import com.hello.ourApplication.Retrofit.RetrofitClient;
 import com.hello.ourApplication.TestActivity;
 import com.hello.ourApplication.Todo.TodoMainActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,7 +55,10 @@ public class DiaryWriteActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-
+    public static DiaryResponse result;
+    // Initialize variables to hold the most recent emotion's date and emotion
+    public static String recentDate = "";
+    public static String recentEmotion = "";
     TextView diaryContent;
 
     @Override
@@ -223,7 +231,7 @@ public class DiaryWriteActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
 
                     //response.body()를 result에 저장
-                    DiaryResponse result = response.body();
+                    result = response.body();
 
                     //받은 코드 저장
                     String resultCode = result.getStatusCode();
@@ -234,7 +242,8 @@ public class DiaryWriteActivity extends AppCompatActivity {
                     if (resultCode.equals(success)) {
 
                         Toast.makeText(DiaryWriteActivity.this, "일기가 작성 완료되었습니다.", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(DiaryWriteActivity.this, DiaryPhotoActivity.class);
+                        returnEmotion();
+                        Intent intent = new Intent(DiaryWriteActivity.this, DiarySelectKeywordActivity.class);
                         intent.putExtra("userId", userID);
                         startActivity(intent);
                         DiaryWriteActivity.this.finish();
@@ -262,6 +271,22 @@ public class DiaryWriteActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    private void returnEmotion() {
+        // Your JSON response as a string
+        String bodyString = result.getToken();
+
+        try {
+            // Parse the body string from JSON
+            JSONObject emotion = new JSONObject(bodyString);
+            String emotionStr = emotion.optString("emotion", null); // Fetch emotion or null if not present
+            recentEmotion = emotionStr;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

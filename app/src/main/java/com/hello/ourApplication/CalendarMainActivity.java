@@ -1,5 +1,7 @@
 package com.hello.ourApplication;
 
+import static android.util.Log.v;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -289,10 +291,18 @@ public class CalendarMainActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        String recentEmotion = intent.getStringExtra("recentEmotion");
+        ArrayList<String> recentEmotions = intent.getStringArrayListExtra("recentEmotion");
 
-        if (recentEmotion != null) {
-            emotionTextView.setText(recentEmotion);
+        if (recentEmotions != null) {
+            StringBuilder emotionBuilder = new StringBuilder();
+
+            for (String emotion : recentEmotions) {
+                emotionBuilder.append(emotion).append(", "); // 각각의 감정을 문자열에 추가
+            }
+
+            // 마지막 쉼표와 공백 제거 후 TextView에 설정
+            String emotionsText = emotionBuilder.toString().replaceAll(", $", "");
+            emotionTextView.setText(emotionsText);
         }
 
     }

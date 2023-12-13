@@ -64,6 +64,7 @@
                         android:src="@drawable/test_character" />
 
                     <TextView
+                        android:id="@+id/mainUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/himelody"
@@ -95,6 +96,7 @@
                         android:src="@drawable/rec_music" />
 
                     <TextView
+                        android:id="@+id/music_recommend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -108,68 +110,70 @@
                         android:textSize="15sp"
                         android:textStyle="normal"
                         android:typeface="sans" />
+
+
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp">
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="20dp">-->
 
-                    <ImageView
-                        android:id="@+id/recommend_movie"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="#00FFFFFF"
-                        android:src="@drawable/rec_movie" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/recommend_movie"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:background="#00FFFFFF"-->
+<!--                        android:src="@drawable/rec_movie" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:letterSpacing="0.04"
-                        android:lineSpacingExtra="18dp"
-                        android:paddingLeft="120dp"
-                        android:paddingTop="60dp"
-                        android:paddingRight="80dp"
-                        android:text="혹시 심심하면\n영화를 추천해 줄게!"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="normal"
-                        android:typeface="sans" />
-                </RelativeLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:letterSpacing="0.04"-->
+<!--                        android:lineSpacingExtra="18dp"-->
+<!--                        android:paddingLeft="120dp"-->
+<!--                        android:paddingTop="60dp"-->
+<!--                        android:paddingRight="80dp"-->
+<!--                        android:text="혹시 심심하면\n영화를 추천해 줄게!"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="normal"-->
+<!--                        android:typeface="sans" />-->
+<!--                </RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="150dp">
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_marginBottom="150dp">-->
 
-                    <ImageView
-                        android:id="@+id/recommend_quote"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="#00FFFFFF"
-                        android:src="@drawable/rec_quote" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/recommend_quote"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:background="#00FFFFFF"-->
+<!--                        android:src="@drawable/rec_quote" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:letterSpacing="0.04"
-                        android:lineSpacingExtra="18dp"
-                        android:paddingTop="60dp"
-                        android:paddingLeft="120dp"
-                        android:paddingRight="80dp"
-                        android:text="위로가 될 만한\n문장을 추천해 줄게!"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="normal"
-                        android:typeface="sans" />
-                </RelativeLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:letterSpacing="0.04"-->
+<!--                        android:lineSpacingExtra="18dp"-->
+<!--                        android:paddingTop="60dp"-->
+<!--                        android:paddingLeft="120dp"-->
+<!--                        android:paddingRight="80dp"-->
+<!--                        android:text="위로가 될 만한\n문장을 추천해 줄게!"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="normal"-->
+<!--                        android:typeface="sans" />-->
+<!--                </RelativeLayout>-->
             </LinearLayout>
         </ScrollView>
 

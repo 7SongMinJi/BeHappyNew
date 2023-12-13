@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0); // 0은 header의 index입니다.
 
         TextView userNameTextView = headerView.findViewById(R.id.user_name);
-        userNameTextView.setText("안녕");
+        userNameTextView.setText("행복");
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

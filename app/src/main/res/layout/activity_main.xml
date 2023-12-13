@@ -57,7 +57,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
-                    android:text="-우울증 관련 위로되는 글귀-"
+                    android:text="매일 떠오르는 햇살처럼, 너의 내일은 오늘보다 더 밝고 따뜻할 거야."
                     android:textColor="#FFFFFF"
                     android:textSize="30sp" />
 

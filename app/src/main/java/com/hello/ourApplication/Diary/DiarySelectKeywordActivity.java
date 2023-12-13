@@ -1,5 +1,7 @@
 package com.hello.ourApplication.Diary;
 
+import static com.hello.ourApplication.Diary.DiaryWriteActivity.recentEmotion;
+import static com.hello.ourApplication.Diary.DiaryWriteActivity.result;
 import static com.hello.ourApplication.Registration.LoginActivity.idText;
 
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -40,7 +43,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -50,10 +55,6 @@ import retrofit2.Response;
 public class DiarySelectKeywordActivity extends AppCompatActivity {
     private RetrofitClient retrofitClient;
     private RetrofitAPI retrofitAPI;
-    public EmotionResponse result;
-    // Initialize variables to hold the most recent emotion's date and emotion
-    public String recentDate = "";
-    public String recentEmotion = "";
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -66,6 +67,7 @@ public class DiarySelectKeywordActivity extends AppCompatActivity {
     ImageButton sadkeyword;
     ImageButton suprisekeyword;
     ImageButton selectKeyword;
+    public static ArrayList<String> emotions = new ArrayList<>(); // 감정 값을 저장할 리스트
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,248 @@ public class DiarySelectKeywordActivity extends AppCompatActivity {
         suprisekeyword = findViewById(R.id.keyword_button_9);
         selectKeyword = findViewById(R.id.selectKeyword);
         
-        EmotionGetResponse();
+        returnEmotion();
+
+        emotions.add(recentEmotion);
+
+//        angrykeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isButton1) {
+//                    // 버튼 상태가 1일 때 눌렸을 경우
+//                    angrykeyword.setImageResource(R.drawable.btn_knang);
+//                } else {
+//                    // 버튼 상태가 2일 때 눌렸을 경우
+//                    angrykeyword.setImageResource(R.drawable.btn_ksang);
+//                }
+//
+//                // 버튼 상태 변경
+//                isButton1 = !isButton1;
+//            }
+//        });
+//
+//        disgustkeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isButton2) {
+//                    // 버튼 상태가 1일 때 눌렸을 경우
+//                    disgustkeyword.setImageResource(R.drawable.btn_kndis);
+//                } else {
+//                    // 버튼 상태가 2일 때 눌렸을 경우
+//                    disgustkeyword.setImageResource(R.drawable.btn_ksdis);
+//                }
+//
+//                // 버튼 상태 변경
+//                isButton2 = !isButton2;
+//            }
+//        });
+//
+//        fearkeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isButton3) {
+//                    // 버튼 상태가 1일 때 눌렸을 경우
+//                    fearkeyword.setImageResource(R.drawable.btn_knfear);
+//                } else {
+//                    // 버튼 상태가 2일 때 눌렸을 경우
+//                    fearkeyword.setImageResource(R.drawable.btn_ksfear);
+//                }
+//
+//                // 버튼 상태 변경
+//                isButton3 = !isButton3;
+//            }
+//        });
+//
+//        happykeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isButton4) {
+//                    // 버튼 상태가 1일 때 눌렸을 경우
+//                    happykeyword.setImageResource(R.drawable.btn_knhap);
+//                } else {
+//                    // 버튼 상태가 2일 때 눌렸을 경우
+//                    happykeyword.setImageResource(R.drawable.btn_kshap);
+//                }
+//
+//                // 버튼 상태 변경
+//                isButton4 = !isButton4;
+//            }
+//        });
+//
+//        neutralkeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isButton5) {
+//                    // 버튼 상태가 1일 때 눌렸을 경우
+//                    neutralkeyword.setImageResource(R.drawable.btn_knneu);
+//                } else {
+//                    // 버튼 상태가 2일 때 눌렸을 경우
+//                    neutralkeyword.setImageResource(R.drawable.btn_ksneu);
+//                }
+//
+//                // 버튼 상태 변경
+//                isButton5 = !isButton5;
+//            }
+//        });
+//
+//        sadkeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isButton6) {
+//                    // 버튼 상태가 1일 때 눌렸을 경우
+//                    sadkeyword.setImageResource(R.drawable.btn_knsad);
+//                } else {
+//                    // 버튼 상태가 2일 때 눌렸을 경우
+//                    sadkeyword.setImageResource(R.drawable.btn_kssad);
+//                }
+//
+//                // 버튼 상태 변경
+//                isButton6 = !isButton6;
+//            }
+//        });
+//
+//        suprisekeyword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isButton7) {
+//                    // 버튼 상태가 1일 때 눌렸을 경우
+//                    suprisekeyword.setImageResource(R.drawable.btn_knsup);
+//                } else {
+//                    // 버튼 상태가 2일 때 눌렸을 경우
+//                    suprisekeyword.setImageResource(R.drawable.btn_kssup);
+//                }
+//
+//                // 버튼 상태 변경
+//                isButton7 = !isButton7;
+//            }
+//        });
+
+        // 버튼 클릭 이벤트 처리
+        angrykeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick("분노"); // 클릭 시 감정 값 전달
+            }
+        });
+        disgustkeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick("혐오"); // 클릭 시 감정 값 전달
+            }
+        });
+        fearkeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick("공포"); // 클릭 시 감정 값 전달
+            }
+        });
+        happykeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick("행복"); // 클릭 시 감정 값 전달
+            }
+        });
+        neutralkeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick("중립"); // 클릭 시 감정 값 전달
+            }
+        });
+        sadkeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick("슬픔"); // 클릭 시 감정 값 전달
+            }
+        });
+        suprisekeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick("놀람"); // 클릭 시 감정 값 전달
+            }
+        });
+
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_chat: // "채팅하기" 메뉴 클릭 시
+                        Intent intent = new Intent(DiarySelectKeywordActivity.this, ChatMainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.item_recommend: // "추천받기" 메뉴 클릭 시
+                        intent = new Intent(DiarySelectKeywordActivity.this, RecommendActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.item_diary: // "일기 모아보기" 메뉴 클릭 시
+                        intent = new Intent(DiarySelectKeywordActivity.this, DiaryMainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.item_test: // "우울증 자가 진단" 메뉴 클릭 시
+                        intent = new Intent(DiarySelectKeywordActivity.this, TestActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.item_diary_new: // "일기 작성하기" 메뉴 클릭 시
+                        intent = new Intent(DiarySelectKeywordActivity.this, DiaryWriteActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.item_checklist:
+                        intent = new Intent(DiarySelectKeywordActivity.this, TodoMainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.item_calendar:
+                        intent = new Intent(DiarySelectKeywordActivity.this, CalendarMainActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+
+                // 네비게이션 드로어 닫기
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
+
+        // BottomNavigationView의 아이템 클릭 리스너 설정
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_bar_home:
+                    // 홈 버튼 클릭 시
+                    startActivity(new Intent(DiarySelectKeywordActivity.this, MainActivity.class));
+                    return true;
+                case R.id.menu_bar_chat:
+                    // 채팅 버튼 클릭 시
+                    startActivity(new Intent(DiarySelectKeywordActivity.this, ChatMainActivity.class));
+                    return true;
+                case R.id.menu_bar_calendar:
+                    // 캘린더 버튼 클릭 시
+                    startActivity(new Intent(DiarySelectKeywordActivity.this, CalendarMainActivity.class));
+                    return true;
+                default:
+                    return false;
+            }
+        });
+
+        selectKeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Intent를 사용하여 CalendarMainActivity로 recentEmotion 전달
+                Intent intent = new Intent(DiarySelectKeywordActivity.this, CalendarMainActivity.class);
+                intent.putExtra("recentEmotion", emotions);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    private void handleButtonClick(String emotion){
+        if(emotions.contains(emotion))
+            emotions.remove(emotion);
+        else
+            emotions.add(emotion);
+
+        recentEmotion = emotion;
 
         angrykeyword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,162 +458,107 @@ public class DiarySelectKeywordActivity extends AppCompatActivity {
                 isButton7 = !isButton7;
             }
         });
-        
-        EmotionPostResponse();
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item_chat: // "채팅하기" 메뉴 클릭 시
-                        Intent intent = new Intent(DiarySelectKeywordActivity.this, ChatMainActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.item_recommend: // "추천받기" 메뉴 클릭 시
-                        intent = new Intent(DiarySelectKeywordActivity.this, RecommendActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.item_diary: // "일기 모아보기" 메뉴 클릭 시
-                        intent = new Intent(DiarySelectKeywordActivity.this, DiaryMainActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.item_test: // "우울증 자가 진단" 메뉴 클릭 시
-                        intent = new Intent(DiarySelectKeywordActivity.this, TestActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.item_diary_new: // "일기 작성하기" 메뉴 클릭 시
-                        intent = new Intent(DiarySelectKeywordActivity.this, DiaryWriteActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.item_checklist:
-                        intent = new Intent(DiarySelectKeywordActivity.this, TodoMainActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.item_calendar:
-                        intent = new Intent(DiarySelectKeywordActivity.this, CalendarMainActivity.class);
-                        startActivity(intent);
-                        break;
-                }
-
-                // 네비게이션 드로어 닫기
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-
-        // BottomNavigationView의 아이템 클릭 리스너 설정
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.menu_bar_home:
-                    // 홈 버튼 클릭 시
-                    startActivity(new Intent(DiarySelectKeywordActivity.this, MainActivity.class));
-                    return true;
-                case R.id.menu_bar_chat:
-                    // 채팅 버튼 클릭 시
-                    startActivity(new Intent(DiarySelectKeywordActivity.this, ChatMainActivity.class));
-                    return true;
-                case R.id.menu_bar_calendar:
-                    // 캘린더 버튼 클릭 시
-                    startActivity(new Intent(DiarySelectKeywordActivity.this, CalendarMainActivity.class));
-                    return true;
-                default:
-                    return false;
-            }
-        });
-
-        selectKeyword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Intent를 사용하여 CalendarMainActivity로 recentEmotion 전달
-                Intent intent = new Intent(DiarySelectKeywordActivity.this, CalendarMainActivity.class);
-                intent.putExtra("recentEmotion", recentEmotion);
-                startActivity(intent);
-            }
-        });
     }
-
-    private void EmotionPostResponse() {
-    }
-
-    private void EmotionGetResponse() {
-        String userID = idText.getText().toString().trim();
-
-        // diary에 값 저장하기
-        ReadEmotion readEmotion = new ReadEmotion(userID);
-
-        //retrofit 생성
-        retrofitClient = RetrofitClient.getInstance();
-        retrofitAPI = RetrofitClient.getRetrofitInterface();
-
-        retrofitAPI.getReadEmotionResponse(readEmotion).enqueue(new Callback<EmotionResponse>() {
-            @Override
-            public void onResponse(Call<EmotionResponse> call, Response<EmotionResponse> response) {
-
-                Log.d("retrofit", "Data fetch success");
-
-                //통신 성공
-                if (response.isSuccessful() && response.body() != null) {
-
-                    //response.body()를 result에 저장
-                    result = response.body();
-
-                    //받은 코드 저장
-                    String resultCode = result.getStatusCode();
-
-                    String success = "200"; //로그인 성공
-
-
-                    if (resultCode.equals(success)) {
-                        returnEmotion();
-                        return;
-
-                    } else {
-                        Toast.makeText(DiarySelectKeywordActivity.this, "감정을 분석하는 과정에서 문제가 발생했습니다.", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            //통신 실패
-            @Override
-            public void onFailure(Call<EmotionResponse> call, Throwable t) {
-                Toast.makeText(DiarySelectKeywordActivity.this, "감정을 분석하는 과정에서 문제가 발생했습니다.", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+//    private void EmotionGetResponse() {
+//        String userID = idText.getText().toString().trim();
+//
+//        // diary에 값 저장하기
+//        ReadEmotion readEmotion = new ReadEmotion(userID);
+//
+//        //retrofit 생성
+//        retrofitClient = RetrofitClient.getInstance();
+//        retrofitAPI = RetrofitClient.getRetrofitInterface();
+//
+//        retrofitAPI.getReadEmotionResponse(readEmotion).enqueue(new Callback<EmotionResponse>() {
+//            @Override
+//            public void onResponse(Call<EmotionResponse> call, Response<EmotionResponse> response) {
+//
+//                Log.d("retrofit", "Data fetch success");
+//
+//                //통신 성공
+//                if (response.isSuccessful() && response.body() != null) {
+//
+//                    //response.body()를 result에 저장
+//                    result = response.body();
+//
+//                    //받은 코드 저장
+//                    String resultCode = result.getStatusCode();
+//
+//                    String success = "200"; //로그인 성공
+//
+//
+//                    if (resultCode.equals(success)) {
+//                        returnEmotion();
+//                        return;
+//
+//                    } else {
+//                        Toast.makeText(DiarySelectKeywordActivity.this, "감정을 분석하는 과정에서 문제가 발생했습니다.", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            }
+//
+//            //통신 실패
+//            @Override
+//            public void onFailure(Call<EmotionResponse> call, Throwable t) {
+//                Toast.makeText(DiarySelectKeywordActivity.this, "감정을 분석하는 과정에서 문제가 발생했습니다.", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 
     private void returnEmotion() {
-        // Your JSON response as a string
-        String bodyString = result.getToken();
 
-        try {
-            // Parse the body string from JSON
-            JSONObject bodyObject = new JSONObject(bodyString);
-            JSONArray emotionsArray = bodyObject.getJSONArray("emotions");
+        if(recentEmotion.isEmpty()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(DiarySelectKeywordActivity.this);
+            builder.setTitle("알림")
+                    .setMessage(recentEmotion)
+                    .setPositiveButton("확인", null)
+                    .create()
+                    .show();
+        } else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(DiarySelectKeywordActivity.this);
+            builder.setTitle("알림")
+                    .setMessage(recentEmotion)
+                    .setPositiveButton("확인", null)
+                    .create()
+                    .show();
+        }
 
-            // Iterate through emotions to find the most recent one
-            for (int i = 0; i < emotionsArray.length(); i++) {
-                JSONObject emotion = emotionsArray.getJSONObject(i);
-                String date = emotion.getString("date");
-                String emotionStr = emotion.optString("emotion", null); // Fetch emotion or null if not present
+        switch (recentEmotion){
+            case "혐오":
+                happykeyword.setImageResource(R.drawable.btn_ksdis);
+                isButton1 = !isButton1;
+                break;
 
-                // Check if the date is not empty and is more recent than the current recentDate
-                if (!date.isEmpty() && (recentDate.isEmpty() || date.compareTo(recentDate) > 0)) {
-                    recentDate = date;
-                    recentEmotion = emotionStr;
-                }
-            }
+            case "분노":
+                angrykeyword.setImageResource(R.drawable.btn_ksang);
+                isButton2 = !isButton2;
+                break;
 
-            switch (recentEmotion){
-                case "행복":
-                    happykeyword.setImageResource(R.drawable.btn_kshap);
-                    isButton4 = !isButton4;
-                    break;
-            }
+            case "공포":
+                fearkeyword.setImageResource(R.drawable.btn_ksfear);
+                isButton3 = !isButton3;
+                break;
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            case "행복":
+                happykeyword.setImageResource(R.drawable.btn_kshap);
+                isButton4 = !isButton4;
+                break;
+
+            case "중립":
+                neutralkeyword.setImageResource(R.drawable.btn_ksneu);
+                isButton5 = !isButton5;
+                break;
+
+            case "슬픔":
+                sadkeyword.setImageResource(R.drawable.btn_kssad);
+                isButton6 = !isButton6;
+                break;
+
+            case "놀람":
+                suprisekeyword.setImageResource(R.drawable.btn_kssup);
+                isButton7 = !isButton7;
+                break;
         }
 
     }
