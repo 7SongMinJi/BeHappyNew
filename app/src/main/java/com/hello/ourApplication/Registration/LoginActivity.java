@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                     String success = "200"; //로그인 성공
                     String error = "401"; //틀린 아이디 또는 비번
 
-
+                    System.out.println();
                     if (resultCode.equals(success)) {
                         String userID = idText.getText().toString();
                         String userPassword = pwText.getText().toString();
